@@ -396,6 +396,18 @@ class App extends Component {
         calculated: true
       })
     }
+    this.renderChart()
+  }
+
+  renderChart() {
+    // render chart after alt per btc calculated
+    if (this.state.calculated === true) {
+      return(
+        <div>
+          <BtcChart alt={this.state.altPerBtc} />
+        </div>
+      )
+    }
   }
 
 
