@@ -362,9 +362,6 @@ class App extends Component {
     }
 
 
-
-
-// <AltController />
   render() {
 		return (
 			<Router>
@@ -372,7 +369,10 @@ class App extends Component {
 				<div className="container">
 				<h1>Crypto Tracker</h1>
 				<Nav />
-        
+        <AltController btc={this.state.btcValue}
+          dash={this.state.dashCapCoin.usd}
+          eth={this.state.ethCapCoin.usd}
+          ltc={this.state.ltcCapCoin.usd} />
 				<div>				
 				<Route path='/bitcoin' render={() => <BtcController btcValue={this.state.btcValue} 
 					btcCapCoin={this.state.btcCapCoin}
