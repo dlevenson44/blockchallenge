@@ -23,18 +23,14 @@ class App extends Component {
     this.state = {
       // has alt per btc data been calculated?
       calculated: false,
-      // checks to see if data has already been posted to db
-      dataSent: false,
-      // trigger when all fetches have run
-      fetchCheck: false,
       // count fetches run
+      fetchCounter: 0,
       // alt per btc values
       altPerBtc: {
         dashPerBtc: 0,
         ethPerBtc: 0,
         ltcPerBtc: 0
       },
-      fetchCounter: 0,
       // bitcoin/usd value
       btcValue: 0,
       // bitcoin market trends
@@ -141,8 +137,10 @@ class App extends Component {
         method: 'GET'
       }).then(res => res.json())
       .then(res => {
+          // set fetcher to current fetchCounter and then add 1          
           let fetcher = this.state.fetchCounter + 1
           console.log(fetcher, 'FETCH COUNTER')
+          // set fetchCounter state to new value, btcValue to retrieved value
           this.setState({
               fetchCounter: fetcher,
               btcValue: res.bpi.USD.rate,
@@ -369,8 +367,7 @@ class App extends Component {
               high: res.result.XLTCZUSD.h[1],
               trades: res.result.XLTCZUSD.t[1]
             }
-          },
-          fetchCheck: true
+          }
         })
       })
       // calcualte alt per btc values
