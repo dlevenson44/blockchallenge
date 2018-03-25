@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2'
 
-class TrendChart extends Component {
+class DollarChart extends Component {
     constructor(props) {
         super(props)
-        console.log(this)
         this.state = {            
             chartData: {
-                labels: ['BTC', 'Dash', 'ETH', 'LTC'],
+                labels: ['Dash', 'ETH', 'LTC'],
                 datasets: [
                     {
-                        label: '1 Hour Trend',
+                        label: 'USD',
                         data: [
-                            this.props.btcTrends.oneHour,
-                            this.props.dashTrends.oneHour,
-                            this.props.ethTrends.oneHour,
-                            this.props.ltcTrends.oneHour
+                            this.props.dashUsd,
+                            this.props.ethUsd,
+                            this.props.ltcUsd
                         ],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.6)',
                             'rgba(255, 99, 132, 0.6)',
                             'rgba(255, 99, 132, 0.6)',
                             'rgba(255, 99, 132, 0.6)',
@@ -26,33 +23,17 @@ class TrendChart extends Component {
                         ]
                     },
                     {
-                        label: '24 Hour Trend',
+                        label: 'EUR',
                         data: [
-                            this.props.btcTrends.oneDay,
-                            this.props.dashTrends.oneDay,
-                            this.props.ethTrends.oneDay,
-                            this.props.ltcTrends.oneDay
+                            this.props.dashEur,
+                            this.props.ethEur,
+                            this.props.ltcEur
                         ],
                         backgroundColor: [
                             'rgba(75, 192, 192, 0.6)',
                             'rgba(75, 192, 192, 0.6)',
                             'rgba(75, 192, 192, 0.6)',
                             'rgba(75, 192, 192, 0.6)',
-                        ]
-                    },
-                    {
-                        label: '7 Day Trend',
-                        data: [
-                            this.props.btcTrends.oneWeek,
-                            this.props.dashTrends.oneWeek,
-                            this.props.ethTrends.oneWeek,
-                            this.props.ltcTrends.oneWeek
-                        ],
-                        backgroundColor: [
-                            'rgba(75, 102, 102, 0.6)',
-                            'rgba(75, 102, 102, 0.6)',
-                            'rgba(75, 102, 102, 0.6)',
-                            'rgba(75, 102, 102, 0.6)',
                         ]
                     }
                 ]
@@ -62,25 +43,24 @@ class TrendChart extends Component {
 
     render() {
         return(
-            <div className="chart-container">
+            <div className="chart-container" >
                 <Bar
                     data={this.state.chartData}
                     options={{
                         maintainAspectRatio: true,
                         title: {
                             display: true,
-                            text: 'BTC Value',
+                            text: 'Currency Value',
                             fontSize: 20
                         },
                         legend: {
                             display: true,
                             position: "top"
                         }
-                    }
-                } />
+                }} />
             </div>
         )
     }
 }
 
-export default TrendChart
+export default DollarChart
