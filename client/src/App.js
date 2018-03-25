@@ -11,15 +11,26 @@ import EthController from './components/EthController'
 import LtcController from './components/LtcController'
 import Nav from './components/Nav'
 
+// import charts
+import BtcChart from './components/BtcChart'
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // has alt per btc data been calculated?
+      calculated: false,
       // checks to see if data has already been posted to db
       dataSent: false,
       // trigger when all fetches have run
       fetchCheck: false,
       // count fetches run
+      // alt per btc values
+      altPerBtc: {
+        dashPerBtc: 0,
+        ethPerBtc: 0,
+        ltcPerBtc: 0
+      },
       fetchCounter: 0,
       // bitcoin/usd value
       btcValue: 0,
@@ -118,9 +129,9 @@ class App extends Component {
 
   }
   componentWillMount() {
-    this.btcCoinDesk()      
+    this.btcCoinDesk()    
   }
-  
+
     // first API fetch, get BTC USD via CoinDesk API
   btcCoinDesk() {
       fetch('https://api.coindesk.com/v1/bpi/currentprice/BTC.json', {
@@ -359,20 +370,44 @@ class App extends Component {
           fetchCheck: true
         })
       })
+      // calcualte alt per btc values
+      // this.calculateData()
     }
+  
+  calculateData() {
+    if ((this.state.calculated === false) && (this.state.btcValue !== 0) && (this.state.dashCapCoin.usd !== 0) && (this.state.ethCapCoin.usd !== 0) && (this.state.ltcCapCoin.usd !== 0)) {
+      console.log('cacl')
+      //  convert props from string to number
+      let btc = parseFloat(this.state.btcValue)
+      let dash = parseFloat(this.state.dashCapCoin.usd)
+      let eth = parseFloat(this.state.ethCapCoin.usd)
+      let ltc = parseFloat(this.state.ltcCapCoin.usd)
+      // calculate alt per btc values
+      let dpb = (dash / btc)
+      let epb = (eth / btc)
+      let lpb = (ltc / btc)
+      // set state to calculated values
+      this.setState({
+        altPerBtc: {
+          dashPerBtc: dpb,
+          ethPerBtc: epb,
+          ltcPerBtc: lpb,
+        },
+        calculated: true
+      })
+    }
+  }
 
 
   render() {
+    this.calculateData()
 		return (
 			<Router>
 				<div className="App">
 				<div className="container">
 				<h1>Crypto Tracker</h1>
 				<Nav />
-        <AltController btc={this.state.btcValue}
-          dash={this.state.dashCapCoin.usd}
-          eth={this.state.ethCapCoin.usd}
-          ltc={this.state.ltcCapCoin.usd} />
+        <AltController alt={this.state.altPerBtc} />
 				<div>				
 				<Route path='/bitcoin' render={() => <BtcController btcValue={this.state.btcValue} 
 					btcCapCoin={this.state.btcCapCoin}
