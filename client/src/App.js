@@ -12,6 +12,7 @@ import LtcController from './components/LtcController'
 import Nav from './components/Nav'
 
 // import charts
+import ChartController from './components/ChartController'
 import BtcChart from './components/BtcChart'
 
 class App extends Component {
@@ -396,7 +397,6 @@ class App extends Component {
         calculated: true
       })
     }
-    this.renderChart()
   }
 
   renderChart() {
@@ -405,6 +405,54 @@ class App extends Component {
       return(
         <div>
           <BtcChart alt={this.state.altPerBtc} />
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <p>Loading Chart</p>
+        </div>
+      )
+    }
+  }
+
+  renderChartDollar() {
+    // render after all API data has been fetched
+    if (this.state.fetchCounter === 10) {
+      return(
+        <div>
+          <DollarChart dashUsd={this.state.dashCapCoin.usd}
+          dashEur={this.state.dashKraken.eur}
+          ethUsd={this.state.ethCapCoin.usd}
+          ethEur={this.state.ethKraken.eur}
+          ltcUsd={this.state.ltcCapCoin.usd}
+          ltcEur={this.state.ltcKraken.eur} />
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <p>Loading Chart</p>
+        </div>
+      )
+    }
+  }
+
+  renderChartTrend() {
+    // render chart after last fetch complete
+    if (this.state.fetchCounter === 10) {
+      return(
+        <div>
+          <TrendChart btcTrends={this.state.btcCapCoin}
+          dashTrends={this.state.dashCapCoin.trends}
+          ethTrends={this.state.ethCapCoin.trends}
+          ltcTrends={this.state.ltcCapCoin.trends} />
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <p>Loading Chart</p>
         </div>
       )
     }
