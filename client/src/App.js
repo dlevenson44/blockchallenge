@@ -14,6 +14,8 @@ import Nav from './components/Nav'
 // import charts
 import ChartController from './components/ChartController'
 import BtcChart from './components/BtcChart'
+import DollarChart from './components/DollarChart'
+import TrendChart from './components/TrendChart'
 
 class App extends Component {
   constructor(props) {
@@ -468,8 +470,11 @@ class App extends Component {
 				<h1>Crypto Tracker</h1>
 				<Nav />
         <AltController alt={this.state.altPerBtc} />
-				<div>				
-				<Route path='/bitcoin' render={() => <BtcController btcValue={this.state.btcValue} 
+				<div>
+        <Route exact path='/' render={() => <ChartController renderChart={this.renderChart()}
+        renderChartDollar={this.renderChartDollar()} renderChartTrend={this.renderChartTrend()} />} />
+				
+        <Route path='/bitcoin' render={() => <BtcController btcValue={this.state.btcValue} 
 					btcCapCoin={this.state.btcCapCoin}
 					btcKraken={this.state.btcKraken}
 					btcPolo={this.state.btcPolo}
