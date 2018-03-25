@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 class EthController extends Component {
     constructor(props) {
         super(props)
+        // set state to empty string or props values
         this.state = {
             usd: '' || this.props.ethCapCoin.usd,
             usHigh: '' || this.props.ethPolo.high24hr,
@@ -18,18 +19,20 @@ class EthController extends Component {
             fetchStatus: false,
             visited: false,
         }
-        // this.getData = this.getData.bind(this)
+        // bind functions
         this.renderData = this.renderData.bind(this)
         this.sendToDb = this.sendToDb.bind(this)
     }
 
     sendToDb() {        
+        //  do not sent to DB until all API calls are ran, prevent 0 values from being entered
         if (this.props.fetchCounter === 10) {
             fetch('/api/eth', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
+                // convert props to JSON string
                 body: JSON.stringify({
                     usd: (this.props.ethCapCoin.usd).substring(0, 6),
                     us_high: (this.props.ethPolo.high24hr).substring(0, 6),
@@ -42,14 +45,18 @@ class EthController extends Component {
                     one_day: this.props.ethCapCoin.trends.oneDay,
                     one_week: this.props.ethCapCoin.trends.oneWeek,
                 }),
+            // send JSON response
             }).then(res => res.json())
+            // catch errors
             .catch(err => console.log(err))
         }
+        // once data is sent to db, fetch posted data
         this.getData()
     }
 
     
     getData() {
+        // check if trigger has been fetched
         if (this.state.fetchStatus === false) {
             fetch('/api/eth')
             .then(res => res.json())
@@ -70,12 +77,15 @@ class EthController extends Component {
                     fetchStatus: true,
                 })
             })
+            // catch error
             .catch(err => console.log(err))
         }
+        // render data after fetched
         this.renderData()
     }
 
     renderData() {
+        // wait for state type to convert to string
         if (typeof this.state.usd === 'string') {
         return(
             <div className="crypto-container">

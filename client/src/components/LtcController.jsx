@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 class LtcController extends Component {
     constructor(props) {
         super(props)
+        // set state to empty string or to props value
         this.state = {
             usd: '' || this.props.ltcCapCoin.usd,
             usHigh: '' || this.props.ltcPolo.high24hr,
@@ -18,18 +19,20 @@ class LtcController extends Component {
             fetchStatus: false,
             visited: false,
         }
-        // this.getData = this.getData.bind(this)
+        // bind functions
         this.renderData = this.renderData.bind(this)
         this.sendToDb = this.sendToDb.bind(this)
     }   
 
-    sendToDb() {        
+    sendToDb() {       
+        //  do not sent to DB until all API calls are ran, prevent 0 values from being entered
         if (this.props.fetchCounter === 10) {
             fetch('/api/ltc', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
+                // convert props to JSON string
                 body: JSON.stringify({
                     usd: (this.props.ltcCapCoin.usd).substring(0, 6),
                     us_high: (this.props.ltcPolo.high24hr).substring(0, 6),
@@ -42,14 +45,18 @@ class LtcController extends Component {
                     one_day: this.props.ltcCapCoin.trends.oneDay,
                     one_week: this.props.ltcCapCoin.trends.oneWeek,
                 }),
+            // send JSON response
             }).then(res => res.json())
+            // catch errors
             .catch(err => console.log(err))
         }
+        // after data is sent to DB, fetch posted data
         this.getData()
     }
 
     
     getData() {
+        // run if trigger hasn'tbeen fetched
         if (this.state.fetchStatus === false) {
             fetch('/api/ltc')
             .then(res => res.json())
@@ -69,12 +76,15 @@ class LtcController extends Component {
                     fetchStatus: true,
                 })
             })
+            // catch errors
             .catch(err => console.log(err))
         }
+        // once data has been fetched, render it
         this.renderData()
     }
 
     renderData() {
+        // wait for state type to convert to string for clean up
         if (typeof this.state.usd === 'string') {
         return(
             <div className="crypto-container">

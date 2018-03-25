@@ -26,7 +26,7 @@ class AltController extends Component {
             let dpb = (dash / btc)
             let epb = (eth / btc)
             let lpb = (ltc / btc)
-            // set state to calculated values
+            // set state to calculated values, set trigger to true
             this.setState({
                 calculated: true,
                 dashPerBtc: dpb,
@@ -38,7 +38,6 @@ class AltController extends Component {
 
 
     render() {        
-        // console.log(this.props)
         this.calculateData()
         return(            
             <div className="hidden-sm-down">

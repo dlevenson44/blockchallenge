@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 class BtcController extends Component {
     constructor(props) {
         super(props)
+        // set state to empty string or to props values
         this.state = {
             usd: '' || this.props.btcValue,
             usHigh: '' || this.props.btcPolo.high24hr,
@@ -17,17 +18,20 @@ class BtcController extends Component {
             oneWeek: '' || this.props.btcCapCoin.oneHour,
             fetchStatus: false,
         }
+        // bind functions
         this.renderData = this.renderData.bind(this)
         this.sendToDb = this.sendToDb.bind(this)
     }
 
-    sendToDb() {        
+    sendToDb() {   
+        //  do not sent to DB until all API calls are ran, prevent 0 values from being entered
         if (this.props.fetchCounter === 10) {
             fetch('/api/btc', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
+                // convert props to JSON string
                 body: JSON.stringify({
                     usd: (this.props.btcValue).substring(0, 8),
                     us_high: (this.props.btcPolo.high24hr).substring(0, 8),
@@ -40,14 +44,18 @@ class BtcController extends Component {
                     one_day: this.props.btcCapCoin.oneDay,
                     one_week: this.props.btcCapCoin.oneWeek,
                 }),
+            // send JSON response
             }).then(res => res.json())
+            // catch errors
             .catch(err => console.log(err))
         }
+        // after data has been sent to db, fetch posted data
         this.getData()
     }
 
     
     getData() {
+        // run if data hasn't already been fetched
         if (this.state.fetchStatus === false) {
             fetch('/api/btc')
             .then(res => res.json())
@@ -67,12 +75,15 @@ class BtcController extends Component {
                     fetchStatus: true,
                 })
             })
+            // catch errors
             .catch(err => console.log(err))
         }
+        // once data has been fetched render it
         this.renderData()
     }
 
     renderData() {
+        // wait for state to convert to string type to clean up
         if (typeof this.state.usd === 'string') {
         return(
             <div className="crypto-container">
@@ -95,8 +106,7 @@ class BtcController extends Component {
     }
 
     render() {
-        this.sendToDb()
-        
+        this.sendToDb()        
         return(
             <div className="crypto-container">
                 {this.renderData()}                
