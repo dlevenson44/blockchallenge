@@ -5,7 +5,9 @@
   "repository": {},
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^3.1.0"
+    "chart.js": "^2.7.2",
+    "concurrently": "^3.1.0",
+    "react-chartjs-2": "^2.7.0"
   },
   "scripts": {
     "build": "concurrently \"cd client && yarn build\" \"cd server && yarn build\"",
