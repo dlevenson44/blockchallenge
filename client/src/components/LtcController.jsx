@@ -21,11 +21,7 @@ class LtcController extends Component {
         // this.getData = this.getData.bind(this)
         this.renderData = this.renderData.bind(this)
         this.sendToDb = this.sendToDb.bind(this)
-    }
-
-    componentDidUpdate() {
-        this.renderData()
-    }
+    }   
 
     sendToDb() {        
         if (this.props.fetchCounter === 10) {
@@ -79,23 +75,25 @@ class LtcController extends Component {
     }
 
     renderData() {
+        if (typeof this.state.usd === 'string') {
         return(
-        <div className="crypto-container">
+            <div className="crypto-container">
             <h5>Trends:</h5>
                 <p>{this.state.trades} trades in the last 24 hours</p>
                 <p>{this.state.oneHour}% change in last hour</p>
                 <p>{this.state.oneDay}% change in last 24 hours</p>
                 <p>{this.state.oneWeek}% change in last 7 days</p>                
             <h5>LTC US Market Info</h5>
-                <p>${this.state.usd} per LTC</p>
-                <p>${(this.state.usHigh)} is the 24 hour high</p>
-                <p>${(this.state.usLow)} is the 24 hour low</p>                            
+                <p>${(this.state.usd).substring(0, 8)} per LTC</p>
+                <p>${(this.state.usHigh).substring(0, 8)} is the 24 hour high</p>
+                <p>${(this.state.usLow).substring(0, 8)} is the 24 hour low</p>                            
             <h5>LTC EU Market Info</h5>
-                <p>€{(this.state.eur)} per LTC</p>
-                <p>€{(this.state.eurHigh)} is the 24 hour high</p>
-                <p>€{(this.state.eurLow)} is the 24 hour low</p>            
+                <p>€{(this.state.eur).substring(0, 8)} per LTC</p>
+                <p>€{(this.state.eurHigh).substring(0, 8)} is the 24 hour high</p>
+                <p>€{(this.state.eurLow).substring(0, 8)} is the 24 hour low</p>            
         </div>
         )
+        } 
     }
 
     render() {
