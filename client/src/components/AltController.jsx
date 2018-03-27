@@ -1,8 +1,7 @@
 // import dependency
 import React, { Component } from 'react'
 
-const AltController = (props) => {
-    console.log(this, props)        
+const AltController = (props) => {        
     return(
         <div>
         <div className="hidden-sm-down">

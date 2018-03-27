@@ -139,7 +139,6 @@ class App extends Component {
       .then(res => {
           // set fetcher to current fetchCounter and then add 1          
           let fetcher = this.state.fetchCounter + 1
-          console.log(fetcher, 'FETCH COUNTER')
           // set fetchCounter state to new value, btcValue to retrieved value
           this.setState({
               fetchCounter: fetcher,
@@ -157,7 +156,6 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
         // set state to fetched values
         this.setState({
           fetchCounter: fetcher,                
@@ -179,7 +177,6 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
         // set state to fetched values
         this.setState({
           fetchCounter: fetcher,
@@ -204,7 +201,6 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
         // set state to fetched values
         this.setState({
           fetchCounter: fetcher,
@@ -237,7 +233,7 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
+        // set state to fetched values
         this.setState({   
           fetchCounter: fetcher,             
           dashCapCoin: {
@@ -261,7 +257,7 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
+        // setstate to fetched values
         this.setState({
           fetchCounter: fetcher,
           dashKraken: {
@@ -285,7 +281,7 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
+        // set state to fetched values
         this.setState({   
           fetchCounter: fetcher,             
           ethCapCoin: {
@@ -309,7 +305,7 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
+        // set state to fetched values
         this.setState({
           fetchCounter: fetcher,
           ethKraken: {
@@ -333,7 +329,7 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
+        // set state to fetched values
         this.setState({ 
           fetchCounter: fetcher,               
           ltcCapCoin: {
@@ -357,7 +353,7 @@ class App extends Component {
       }).then(res => res.json())
       .then(res => {
         let fetcher = this.state.fetchCounter + 1
-        console.log(fetcher, 'FETCH COUNTER')
+        // set state to fetched values
         this.setState({
           fetchCounter: fetcher,          
           ltcKraken: {
@@ -370,13 +366,11 @@ class App extends Component {
           }
         })
       })
-      // calcualte alt per btc values
-      // this.calculateData()
     }
   
   calculateData() {
+    // make sure alt per btc and all crypto USD values are populated before running
     if ((this.state.calculated === false) && (this.state.btcValue !== 0) && (this.state.dashCapCoin.usd !== 0) && (this.state.ethCapCoin.usd !== 0) && (this.state.ltcCapCoin.usd !== 0)) {
-      console.log('cacl')
       //  convert props from string to number
       let btc = parseFloat(this.state.btcValue)
       let dash = parseFloat(this.state.dashCapCoin.usd)
