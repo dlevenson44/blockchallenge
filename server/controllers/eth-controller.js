@@ -4,17 +4,6 @@ const Eth = require('../models/Eth')
 // initiate controller object
 const ethController = {}
 
-// pull all entries from table
-ethController.index = (req, res, next) => {
-    Eth.findAll()
-    .then(eth => {
-        res.json({
-            message: 'retrieved data',
-            data: { eth }
-        })
-    }).catch(next)
-}
-
 // find latest entry
 ethController.latest = (req, res, next) => {
     Eth.findRecent()

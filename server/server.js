@@ -36,9 +36,6 @@ app.get('/', (req, res) => {
 })
 
 // pull routes
-const cryptoRouter = require('./routes/crypto-routes')
-app.use('/api/crypto', cryptoRouter)
-
 const btcRouter = require('./routes/btc-routes')
 app.use('/api/btc', btcRouter)
 

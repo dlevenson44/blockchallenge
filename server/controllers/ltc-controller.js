@@ -4,17 +4,6 @@ const Ltc = require('../models/Ltc')
 // initiate controller object
 const ltcController = {}
 
-// pull all entries from table
-ltcController.index = (req, res, next) => {
-    Ltc.findAll()
-    .then(ltc => {
-        res.json({
-            message: 'retrieved data',
-            data: { ltc }
-        })
-    }).catch(next)
-}
-
 // find latest entry
 ltcController.latest = (req, res, next) => {
     Ltc.findRecent()

@@ -4,17 +4,6 @@ const Dash = require('../models/Dash')
 // initiate controller object
 const dashController = {}
 
-// pull all entries from table
-dashController.index = (req, res, next) => {
-    Dash.findAll()
-    .then(dash => {
-        res.json({
-            message: 'retrieved data',
-            data: { dash }
-        })
-    }).catch(next)
-}
-
 // find latest entry
 dashController.latest = (req, res, next) => {
     Dash.findRecent()

@@ -4,17 +4,6 @@ const Btc = require('../models/Btc')
 // initiate controller object
 const btcController = {}
 
-// pull all entries from table
-btcController.index = (req, res, next) => {
-    Btc.findAll()
-    .then(btc => {
-        res.json({
-            message: 'retrieved data',
-            data: { btc }
-        })
-    }).catch(next)
-}
-
 // find latest entry
 btcController.latest = (req, res, next) => {
     Btc.findRecent()
